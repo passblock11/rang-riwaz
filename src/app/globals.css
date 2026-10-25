@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fcfaf8;
+  --foreground: #3d2c24;
+  --cream: #fcfaf8;
+  --cream-deep: #f3ebe3;
+  --terracotta: #c45c26;
+  --terracotta-light: #e07a3f;
+  --bronze: #6b3e2e;
+  --maroon: #4a1515;
+  --gold: #c9a227;
+  --gold-soft: #e8d5a3;
+  --sage: #6d7f63;
+  --blush: #d4a5a5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-bronze: var(--bronze);
+  --color-maroon: var(--maroon);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-sage: var(--sage);
+  --color-blush: var(--blush);
+  --font-sans: var(--font-lato);
+  --font-serif: var(--font-cormorant);
+  --font-display: var(--font-playfair);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-lato), system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 35%, transparent);
+  color: var(--bronze);
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
