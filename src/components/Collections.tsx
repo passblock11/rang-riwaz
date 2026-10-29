@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { EnquireLink } from "@/components/EnquireLink";
 
 const products = [
   {
@@ -61,13 +62,7 @@ export function Collections() {
               <div className="p-6">
                 <h3 className="font-serif text-xl font-semibold text-bronze">{product.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-bronze/70">{product.description}</p>
-                <a
-                  href="#contact"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-terracotta transition group-hover:gap-3"
-                >
-                  Enquire for price
-                  <span aria-hidden>→</span>
-                </a>
+                <EnquireLink productName={product.name} />
               </div>
             </article>
           ))}

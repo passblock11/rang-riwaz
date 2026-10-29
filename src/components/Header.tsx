@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const INSTAGRAM_URL = "https://www.instagram.com/rang.riwaz.in";
+import { InstagramLeadLink } from "@/components/InstagramLeadLink";
 
 const navLinks = [
   { href: "#collections", label: "Collections" },
@@ -61,14 +60,9 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-terracotta/30 bg-terracotta px-5 py-2.5 text-sm font-medium text-cream shadow-sm transition hover:bg-terracotta-light"
-          >
+          <InstagramLeadLink className="rounded-full border border-terracotta/30 bg-terracotta px-5 py-2.5 text-sm font-medium text-cream shadow-sm transition hover:bg-terracotta-light">
             Instagram
-          </a>
+          </InstagramLeadLink>
         </nav>
 
         <button
@@ -104,15 +98,12 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <InstagramLeadLink
               className="mt-2 inline-flex justify-center rounded-full bg-terracotta px-6 py-3 text-center text-sm font-medium text-cream"
               onClick={() => setMenuOpen(false)}
             >
               Instagram
-            </a>
+            </InstagramLeadLink>
           </nav>
         </div>
       )}

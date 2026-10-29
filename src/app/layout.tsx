@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Lato, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { JsonLd } from "@/components/JsonLd";
+import { SnapPixel } from "@/components/SnapPixel";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const lato = Lato({
@@ -24,32 +27,74 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
+const ogImage = {
+  url: "/og-image.jpg",
+  width: 749,
+  height: 630,
+  alt: "Rang Riwaz — handcrafted lotus diyas and festive home décor",
+  type: "image/jpeg",
+};
+
 export const metadata: Metadata = {
-  title: "Rang Riwaz | Handcrafted Festive Home Décor",
-  description:
-    "Where tradition meets creativity. Handmade Diwali diyas, door torans, and festive home décor crafted with love for every celebration.",
-  keywords: [
-    "Rang Riwaz",
-    "handcrafted",
-    "Diwali decor",
-    "diyas",
-    "festive home decor",
-    "handmade",
-  ],
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "shopping",
+  keywords: siteConfig.keywords,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Rang Riwaz",
-    description: "Handcrafted festive home décor — where tradition meets creativity.",
     type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.shortDescription,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.shortDescription,
+    images: [ogImage.url],
+  },
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  other: {
+    "instagram:site": siteConfig.instagramHandle,
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       className={`${lato.variable} ${cormorant.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-foreground">
+        <SnapPixel />
+        <JsonLd />
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />

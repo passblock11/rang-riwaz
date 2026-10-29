@@ -1,4 +1,4 @@
-const INSTAGRAM_URL = "https://www.instagram.com/rang.riwaz.in";
+import { InstagramLeadLink } from "@/components/InstagramLeadLink";
 
 export function Contact() {
   return (
@@ -13,14 +13,9 @@ export function Contact() {
           </p>
 
           <div className="mt-10 flex justify-center">
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-terracotta px-8 py-3.5 text-sm font-medium text-cream shadow-md shadow-terracotta/20 transition hover:bg-terracotta-light"
-            >
+            <InstagramLeadLink className="inline-flex items-center justify-center rounded-full bg-terracotta px-8 py-3.5 text-sm font-medium text-cream shadow-md shadow-terracotta/20 transition hover:bg-terracotta-light">
               Message @rang.riwaz.in
-            </a>
+            </InstagramLeadLink>
           </div>
         </div>
       </div>
