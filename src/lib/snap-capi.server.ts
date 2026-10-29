@@ -65,6 +65,7 @@ export async function sendSnapConversionEvents(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({ data }),
     cache: "no-store",

@@ -114,22 +114,39 @@ export async function POST(request: Request) {
   if (!result.ok) {
     const isAuth =
       result.status === 401 ||
+      result.reason.toLowerCase().includes("token") ||
       (typeof result.body === "object" &&
         result.body !== null &&
         "reason" in result.body &&
         String((result.body as { reason: string }).reason).toLowerCase().includes("token"));
 
-    const status = result.status && result.status >= 400 ? result.status : 502;
+    if (result.reason.includes("not configured")) {
+      return NextResponse.json(
+        {
+          ok: false,
+          capi: "not_configured",
+          hint: "Set SNAP_CAPI_ACCESS_TOKEN on Vercel (Business Details → Conversions API Tokens).",
+        },
+        { status: 503 },
+      );
+    }
+
+    // Do not surface Snap auth failures as HTTP 401 to the browser — pixel tracking still works.
+    if (isAuth) {
+      console.error("[snap-capi] Invalid or inactive access token:", result.body);
+      return NextResponse.json({
+        ok: true,
+        capi: "not_delivered",
+        reason: "Invalid access token",
+        hint:
+          "Generate a new token: Ads Manager → Business Details → Conversions API Tokens (Org Admin). Update SNAP_CAPI_ACCESS_TOKEN on Vercel and redeploy. New tokens can take up to 24h to activate.",
+        details: result.body,
+      });
+    }
 
     return NextResponse.json(
-      {
-        error: result.reason,
-        hint: isAuth
-          ? "Regenerate the Conversions API access token in Snapchat Events Manager (this pixel) and update SNAP_CAPI_ACCESS_TOKEN on Vercel, then redeploy."
-          : undefined,
-        details: result.body,
-      },
-      { status: result.reason.includes("not configured") ? 503 : status },
+      { ok: false, error: result.reason, details: result.body },
+      { status: result.status && result.status >= 400 ? result.status : 502 },
     );
   }
 
