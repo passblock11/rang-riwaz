@@ -78,9 +78,17 @@ export async function sendSnapConversionEvents(
   }
 
   if (!response.ok) {
+    const snapReason =
+      typeof body === "object" &&
+      body !== null &&
+      "reason" in body &&
+      typeof (body as { reason: unknown }).reason === "string"
+        ? (body as { reason: string }).reason
+        : undefined;
+
     return {
       ok: false,
-      reason: "Snap CAPI request failed",
+      reason: snapReason ?? "Snap CAPI request failed",
       status: response.status,
       body,
     };

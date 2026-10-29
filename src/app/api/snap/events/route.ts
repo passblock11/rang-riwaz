@@ -112,9 +112,23 @@ export async function POST(request: Request) {
   ]);
 
   if (!result.ok) {
+    const isAuth =
+      result.status === 401 ||
+      (typeof result.body === "object" &&
+        result.body !== null &&
+        "reason" in result.body &&
+        String((result.body as { reason: string }).reason).toLowerCase().includes("token"));
+
     const status = result.status && result.status >= 400 ? result.status : 502;
+
     return NextResponse.json(
-      { error: result.reason, details: result.body },
+      {
+        error: result.reason,
+        hint: isAuth
+          ? "Regenerate the Conversions API access token in Snapchat Events Manager (this pixel) and update SNAP_CAPI_ACCESS_TOKEN on Vercel, then redeploy."
+          : undefined,
+        details: result.body,
+      },
       { status: result.reason.includes("not configured") ? 503 : status },
     );
   }
