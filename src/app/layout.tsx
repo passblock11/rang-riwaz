@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lato, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/Footer";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/GoogleTagManager";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-cream text-foreground">
         <GoogleTagManager />
         <GoogleTagManagerNoScript />
+        <GoogleAnalytics />
         <SnapPixel />
         <SnapPageViewTracker />
         <JsonLd />
