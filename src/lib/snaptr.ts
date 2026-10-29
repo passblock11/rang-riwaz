@@ -32,9 +32,48 @@ export type SnapTrackEvent =
   | "ADD_BILLING"
   | "CUSTOM_EVENT_1";
 
-export function trackSnap(event: SnapTrackEvent, data?: Record<string, unknown>) {
-  if (typeof window === "undefined" || typeof window.snaptr !== "function") {
+function createEventId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+function sendConversionsApiEvent(
+  event: SnapTrackEvent,
+  eventId: string,
+  customData?: Record<string, unknown>,
+) {
+  if (typeof window === "undefined") {
     return;
   }
-  window.snaptr("track", event, data);
+
+  void fetch("/api/snap/events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event_name: event,
+      event_id: eventId,
+      event_source_url: window.location.href,
+      custom_data: customData ?? {},
+    }),
+    keepalive: true,
+  }).catch(() => {
+    /* non-blocking */
+  });
+}
+
+/**
+ * Dual delivery: Snap Pixel (browser) + Conversions API (server).
+ * Uses the same event_id for deduplication when both are received.
+ */
+export function trackSnap(event: SnapTrackEvent, data?: Record<string, unknown>) {
+  const eventId = createEventId();
+  const pixelPayload = { ...data, event_id: eventId };
+
+  if (typeof window !== "undefined" && typeof window.snaptr === "function") {
+    window.snaptr("track", event, pixelPayload);
+  }
+
+  sendConversionsApiEvent(event, eventId, data);
 }

@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Lato, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
+import { SnapPageViewTracker } from "@/components/SnapPageViewTracker";
 import { SnapPixel } from "@/components/SnapPixel";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-cream text-foreground">
         <SnapPixel />
+        <SnapPageViewTracker />
         <JsonLd />
         <Header />
         <div className="flex-1">{children}</div>
