@@ -125,7 +125,7 @@ export async function POST(request: Request) {
         {
           ok: false,
           capi: "not_configured",
-          hint: "Set SNAP_CAPI_ACCESS_TOKEN on Vercel (Business Details → Conversions API Tokens).",
+          hint: "Set SNAP_CAPI_ACCESS_TOKEN in src/lib/snap-capi-config.server.ts.",
         },
         { status: 503 },
       );
@@ -139,7 +139,7 @@ export async function POST(request: Request) {
         capi: "not_delivered",
         reason: "Invalid access token",
         hint:
-          "Generate a new token: Ads Manager → Business Details → Conversions API Tokens (Org Admin). Update SNAP_CAPI_ACCESS_TOKEN on Vercel and redeploy. New tokens can take up to 24h to activate.",
+          "Generate a new token: Ads Manager → Business Details → Conversions API Tokens (Org Admin). Paste it into src/lib/snap-capi-config.server.ts and redeploy. New tokens can take up to 24h to activate.",
         details: result.body,
       });
     }

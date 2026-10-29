@@ -1,5 +1,6 @@
 import "server-only";
 import { createHash } from "node:crypto";
+import { SNAP_CAPI_ACCESS_TOKEN } from "@/lib/snap-capi-config.server";
 import { SNAP_PIXEL_ID } from "@/lib/snaptr";
 import type { SnapTrackEvent } from "@/lib/snaptr";
 
@@ -33,7 +34,8 @@ export function sha256Normalize(value: string): string {
 }
 
 function getAccessToken(): string | undefined {
-  return process.env.SNAP_CAPI_ACCESS_TOKEN?.trim();
+  const token = SNAP_CAPI_ACCESS_TOKEN.trim();
+  return token.length > 0 ? token : undefined;
 }
 
 export async function sendSnapConversionEvents(
@@ -41,7 +43,7 @@ export async function sendSnapConversionEvents(
 ): Promise<SnapCapiSendResult> {
   const accessToken = getAccessToken();
   if (!accessToken) {
-    return { ok: false, reason: "SNAP_CAPI_ACCESS_TOKEN is not configured" };
+    return { ok: false, reason: "SNAP_CAPI_ACCESS_TOKEN is empty in snap-capi-config.server.ts" };
   }
 
   if (events.length === 0) {
