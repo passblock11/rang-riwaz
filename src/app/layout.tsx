@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lato, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/Footer";
+import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/GoogleTagManager";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { SnapPageViewTracker } from "@/components/SnapPageViewTracker";
@@ -94,6 +95,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${lato.variable} ${cormorant.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-foreground">
+        <GoogleTagManager />
+        <GoogleTagManagerNoScript />
         <SnapPixel />
         <SnapPageViewTracker />
         <JsonLd />
