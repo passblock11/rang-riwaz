@@ -2,7 +2,7 @@
 
 import { useCart } from "@/components/CartProvider";
 import { InstagramLeadLink } from "@/components/InstagramLeadLink";
-import { DEMO_ITEM_PRICE_INR, snapItemPayload } from "@/lib/snap-commerce";
+import { DEMO_ITEM_PRICE_INR, snapItemPayload, snapPurchasePayload } from "@/lib/snap-commerce";
 import { trackSnap } from "@/lib/snaptr";
 
 function createTransactionId(): string {
@@ -28,6 +28,7 @@ export function CheckoutBar() {
   const checkoutPayload = {
     item_ids: itemIds,
     item_category: "festive_decor",
+    value: totalPrice,
     price: totalPrice,
     currency: "INR",
     number_items: totalItems,
@@ -58,11 +59,10 @@ export function CheckoutBar() {
             type="button"
             className="rounded-full border border-bronze/25 px-5 py-2.5 text-sm font-medium text-bronze transition hover:border-terracotta/40 hover:text-terracotta"
             onClick={() => {
-              trackSnap("PURCHASE", {
-                ...snapItemPayload(itemIds, totalItems),
-                transaction_id: createTransactionId(),
-                price: totalPrice,
-              });
+              trackSnap(
+                "PURCHASE",
+                snapPurchasePayload(itemIds, totalItems, totalPrice, createTransactionId()),
+              );
               clearCart();
             }}
           >
