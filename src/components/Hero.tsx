@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { InstagramLeadLink } from "@/components/InstagramLeadLink";
 
 export function Hero() {
   return (
@@ -23,19 +24,16 @@ export function Hero() {
             Diwali into your home — each one{" "}
             <span className="font-display italic text-bronze">handcrafted with love</span>.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Link
               href="#collections"
-              className="rounded-full bg-terracotta px-8 py-3.5 text-sm font-medium text-cream shadow-md shadow-terracotta/20 transition hover:bg-terracotta-light"
+              className="rounded-full bg-terracotta px-8 py-3.5 text-center text-sm font-medium text-cream shadow-md shadow-terracotta/20 transition hover:bg-terracotta-light sm:w-auto"
             >
               View collections
             </Link>
-            <Link
-              href="#contact"
-              className="rounded-full border border-bronze/20 px-8 py-3.5 text-sm font-medium text-bronze transition hover:border-terracotta/40 hover:text-terracotta"
-            >
-              Custom orders
-            </Link>
+            <InstagramLeadLink className="w-full rounded-full border border-terracotta/35 bg-cream px-6 py-3.5 text-center text-sm font-medium text-terracotta shadow-sm transition hover:border-terracotta hover:bg-terracotta/5 sm:w-auto sm:px-8">
+              Message @rang.riwaz.in
+            </InstagramLeadLink>
           </div>
           <dl className="mt-12 grid grid-cols-3 gap-4 border-t border-gold-soft/60 pt-8">
             {[
