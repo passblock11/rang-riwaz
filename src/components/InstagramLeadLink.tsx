@@ -7,9 +7,11 @@ type Props = {
   className?: string;
   children: ReactNode;
   onClick?: ComponentProps<"a">["onClick"];
+  /** Extra Snap fields (e.g. cart totals) merged into START_CHECKOUT. */
+  snapPayload?: Record<string, unknown>;
 };
 
-export function InstagramLeadLink({ className, children, onClick }: Props) {
+export function InstagramLeadLink({ className, children, onClick, snapPayload }: Props) {
   return (
     <SnapTrackLink
       href={INSTAGRAM_URL}
@@ -20,6 +22,7 @@ export function InstagramLeadLink({ className, children, onClick }: Props) {
       snapPayload={{
         item_category: "instagram_dm",
         description: "Message on Instagram",
+        ...snapPayload,
       }}
       onClick={onClick}
     >

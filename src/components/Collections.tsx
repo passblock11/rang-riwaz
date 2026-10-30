@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AddToCartButton } from "@/components/AddToCartButton";
 import { EnquireLink } from "@/components/EnquireLink";
 
 const products = [
@@ -63,6 +64,7 @@ export function Collections() {
                 <h3 className="font-serif text-xl font-semibold text-bronze">{product.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-bronze/70">{product.description}</p>
                 <EnquireLink productName={product.name} />
+                <AddToCartButton productName={product.name} />
               </div>
             </article>
           ))}

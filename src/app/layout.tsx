@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lato, Playfair_Display } from "next/font/google";
+import { CartMain } from "@/components/CartMain";
+import { CartProvider } from "@/components/CartProvider";
+import { CheckoutBar } from "@/components/CheckoutBar";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/GoogleTagManager";
@@ -102,9 +105,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SnapPixel />
         <SnapPageViewTracker />
         <JsonLd />
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <CartProvider>
+          <Header />
+          <CartMain>{children}</CartMain>
+          <Footer />
+          <CheckoutBar />
+        </CartProvider>
       </body>
     </html>
   );

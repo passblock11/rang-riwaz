@@ -1,4 +1,5 @@
 import { InstagramLeadLink } from "@/components/InstagramLeadLink";
+import { SignUpLeadButton } from "@/components/SignUpLeadButton";
 
 export function Contact() {
   return (
@@ -12,10 +13,11 @@ export function Contact() {
             availability and pricing.
           </p>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4">
             <InstagramLeadLink className="inline-flex items-center justify-center rounded-full bg-terracotta px-8 py-3.5 text-sm font-medium text-cream shadow-md shadow-terracotta/20 transition hover:bg-terracotta-light">
               Message @rang.riwaz.in
             </InstagramLeadLink>
+            <SignUpLeadButton />
           </div>
         </div>
       </div>
